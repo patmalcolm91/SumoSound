@@ -56,7 +56,7 @@ class Ego:
         :return: None
         :type angle: float
         """
-        geometric_angle = ((360 - self.angle + 90) % 360) * math.pi / 180
+        geometric_angle = ((360 - angle + 90) % 360) * math.pi / 180
         ox = math.cos(geometric_angle)
         oy = math.sin(geometric_angle)
         self.set_orientation((ox, oy, 0, 0, 0, 0))
