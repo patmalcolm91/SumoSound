@@ -92,15 +92,22 @@ class EgoVehicle(Ego):
         self.speed = 0
 
     def get_velocity_vector(self):
+        """Calculates the velocity vector of the Ego vehicle."""
         return [self.speed*i for i in self.get_orientation_vector()]
 
     def get_orientation_vector(self):
+        """Calculates the first three components of the OpenAL orientation vector of the Ego vehicle."""
         geometric_angle = ((360 - self.angle + 90) % 360) * math.pi / 180
         ox = math.cos(geometric_angle)
         oy = math.sin(geometric_angle)
         return [ox, oy, 0]
 
     def update(self):
+        """
+        Polls vehicle subscription data from TraCI and updates the vehicle accordingly.
+        Should be run every simulation step.
+        :return: None
+        """
         subscription_result = traci.vehicle.getSubscriptionResults(self.vehID)
         position = subscription_result[tc.VAR_POSITION3D]
         angle = subscription_result[tc.VAR_ANGLE]
@@ -111,6 +118,10 @@ class EgoVehicle(Ego):
         self._set_listener_properties()
 
     def _set_listener_properties(self):
+        """
+        Sets the OpenAL Listener properties based on the Ego Vehicle's current state.
+        :return:
+        """
         self.listener.set_position(self.position)
         self.listener.set_velocity(self.get_velocity_vector())
         self.listener.set_orientation(self.get_orientation_vector() + [0, 0, 0])
@@ -132,6 +143,11 @@ class EgoVehicleManualSpeed(EgoVehicle):
         self.last_position = None
 
     def update(self):
+        """
+        Polls vehicle subscription data from TraCI and updates the vehicle accordingly.
+        Should be run every simulation step.
+        :return: None
+        """
         position, angle, speed = traci.vehicle.getSubscriptionResults(self.vehID)
         self.position = position
         self.angle = angle

@@ -57,7 +57,8 @@ class Simulation:
 
     def update(self):
         """
-        This should be called every simulation timestep.
+        This should be called every simulation timestep. Updates vehicle list and keeps vehicle sounds in sync with
+        the Sumo simulation.
         :return: None
         """
         self.ego.update()
