@@ -18,13 +18,13 @@ import SumoSound
 * PyOpenAL
 
 ## Usage
-See the example script ```sound_test.py``` for an example. Further documentation
+See the example script [sound_test.py](sound_test.py) for an example. Further documentation
 is forthcoming.
 
-In general, you just need to define an Ego object (either of the Ego class or a
-subclass of it), pass this Ego object to a Simulation object, and then call update()
-on the Simulation object once per simulation step. Everything else should be handled
-automatically.
+In general, you just need to define an ```Ego``` object (either of the ```Ego``` class or a
+subclass of it), pass this ```Ego``` object to a ```Simulation``` object, and then call 
+```update()``` on the ```Simulation``` object once per simulation step. Everything else 
+should be handled automatically.
 
 ## Contribution
 Issues and pull requests are welcome.
