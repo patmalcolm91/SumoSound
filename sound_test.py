@@ -16,12 +16,12 @@ soundEgo.set_angle(0)
 
 soundSim = SumoSound.Simulation(soundEgo)
 
-traci.start(sumoCmd) 
+traci.start(sumoCmd)
 step = 0
 while step < 1000:
-   traci.simulationStep()
-   soundSim.update()
-   step += 1
-   time.sleep(0.1)
+    traci.simulationStep()
+    soundSim.update()
+    step += 1
+    time.sleep(0.1)
 
 traci.close()
