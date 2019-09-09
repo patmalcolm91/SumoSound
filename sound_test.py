@@ -12,7 +12,7 @@ sumoCmd = [sumoBinary, "-c", "sound_test.sumocfg"]
 
 soundEgo = SumoSound.Ego()
 soundEgo.set_position((0, 0, 0))
-soundEgo.set_orientation((0, 1, 0, 0, 0, 0))
+soundEgo.set_angle(0)
 
 soundSim = SumoSound.Simulation(soundEgo)
 
