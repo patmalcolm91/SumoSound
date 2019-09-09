@@ -119,7 +119,8 @@ class EgoVehicle(Ego):
 class EgoVehicleManualSpeed(EgoVehicle):
     """
     Sumo Ego Vehicle in which only position and angle are pulled from TraCI,
-    but speed is calculated manually from the positions.
+    but speed is calculated manually from the positions. This is useful if the vehicle is not being controlled directly
+    by Sumo, but from an external script or program, in which case the speed value in Sumo is not correctly reported.
     """
     def __init__(self, vehID):
         """
