@@ -1,0 +1,20 @@
+<configuration>
+
+	<input>
+		<net-file value="sound_test.net.xml"/>
+		<route-files value="sound_test_routes.rou.xml"/>
+		<additional-files value="sound_test_vehicle_types.xml,sound_test_additionals.xml"/>
+	</input>
+	
+	<time>
+   		<step-length value="0.1" />
+        <begin value="0"/>
+        <end value="90"/>
+	</time>
+
+	<processing>
+   		<carfollow.model value = "Krauss" />
+		<lateral-resolution value = "0.25" />
+   	</processing>
+   	
+</configuration>

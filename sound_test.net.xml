@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Sun 08 Sep 2019 09:39:20 PM CEST by Eclipse SUMO netedit Version v1_2_0+1337-d24ff9e
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/home/patrick/School/Thesis/SumoSound/sound_test.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/patrick/School/Thesis/SumoSound/sound_test.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<net version="1.3" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-100.31,2.79,100.70,4.24" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="eastbound" from="gneJ9" to="gneJ10" priority="-1">
+        <lane id="eastbound_0" index="0" speed="13.89" length="201.02" shape="-100.30,1.19 100.71,2.64"/>
+    </edge>
+    <edge id="westbound" from="gneJ10" to="gneJ9" priority="-1">
+        <lane id="westbound_0" index="0" speed="13.89" length="201.02" shape="100.69,5.84 -100.32,4.39"/>
+    </edge>
+
+    <junction id="gneJ10" type="dead_end" x="100.70" y="4.24" incLanes="eastbound_0" intLanes="" shape="100.70,4.24 100.72,1.04 100.70,4.24"/>
+    <junction id="gneJ9" type="dead_end" x="-100.31" y="2.79" incLanes="westbound_0" intLanes="" shape="-100.31,2.79 -100.33,5.99 -100.31,2.79"/>
+
+</net>

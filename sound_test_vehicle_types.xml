@@ -1,0 +1,10 @@
+<root>	
+	<vTypes>
+		<vType color="255,150,51" guishape="bicycle" id="ego" vClass="bicycle"/>
+		<vType accel="1.0" carFollowModel="Krauss" color="255,51,51" decel="2.0" guishape="bicycle" id="bicycle" laneChangeModel="SL2015" latAlignment="compact" length="2.5" maxSpeed="4.8" minGap="0.2" minGapLat="0.05" speedDev="0.1" speedFactor="1.4" tau="1.5" vClass="bicycle"/>
+		<vType accel="0.8" carFollowModel="Krauss" color="0,1,1" decel="3.0" guishape="truck" id="truck" laneChangeModel="SL2015" latAlignment="center" length="10.0" maxSpeed="14" minGap="3.0" minGapLat="0.3" speedDev="0.1" speedFactor="1.05" tau="1.5" vClass="truck"/>
+		<vType accel="0.8" carFollowModel="Krauss" color="0,1,1" decel="3.0" guishape="truck" id="ambulance" laneChangeModel="SL2015" latAlignment="center" length="10.0" maxSpeed="14" minGap="3.0" minGapLat="0.3" speedDev="0.1" speedFactor="1.05" tau="1.5" vClass="emergency"/>
+		<vType accel="1.5" carFollowModel="Krauss" color="243,255,51" decel="4.5" guishape="passenger" id="passenger" laneChangeModel="SL2015" latAlignment="center" length="5.0" maxSpeed="14" minGap="1.5" minGapLat="0.3" speedFactor="normc(1,0.1,0.2,1.2)" tau="1.5" vClass="passenger"/>
+		<vType id="person" minGap="0.25" accel="1.5" decel="2" length="0.215" width="0.478" height="1.719" maxSpeed="1.8" speedDev="0.6" guiShape="pedestrian" vClass="pedestrian"/>
+	</vTypes>
+</root>   
