@@ -162,6 +162,12 @@ class EgoVehicleManualSpeed(EgoVehicle):
         Should be run every simulation step.
         :return: None
         """
+        if not self.subscribed:
+            vehicle_list = traci.vehicle.getIDList()
+            if self.vehID in vehicle_list:
+                self.subscribe()
+            else:
+                return
         position, angle, speed = traci.vehicle.getSubscriptionResults(self.vehID)
         self.position = position
         self.angle = angle
