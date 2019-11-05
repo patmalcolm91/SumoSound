@@ -34,6 +34,8 @@ class VehicleSound:
         self.enabled = enabled
         self.playing = False
         self.looping = looping
+        self.position = (0, 0, 0)
+        self.velocity = (0, 0, 0)
         if enabled:
             self.enable()
 
@@ -41,6 +43,8 @@ class VehicleSound:
         self.source = Source(_buffers[self.file])
         self.source.set_looping(self.looping)
         self.enabled = True
+        self.set_position(self.position)
+        self.set_velocity(self.velocity)
         if self.playing:
             self.play()
 
@@ -75,6 +79,7 @@ class VehicleSound:
         :return: None
         :type position: tuple[float, float, float]
         """
+        self.position = position
         if self.enabled:
             self.source.set_position(position)
 
@@ -85,6 +90,7 @@ class VehicleSound:
         :return: None
         :type velocity: tuple[float, float, float]
         """
+        self.velocity = velocity
         if self.enabled:
             self.source.set_velocity(velocity)
 

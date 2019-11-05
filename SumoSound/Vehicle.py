@@ -73,6 +73,7 @@ class Vehicle:
 
     def enable(self):
         self.enabled = True
+        self.update_sounds()
         for sound in self.sounds:
             sound.enable()
             sound.play()
