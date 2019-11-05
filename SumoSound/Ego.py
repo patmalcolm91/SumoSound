@@ -168,7 +168,9 @@ class EgoVehicleManualSpeed(EgoVehicle):
                 self.subscribe()
             else:
                 return
-        position, angle, speed = traci.vehicle.getSubscriptionResults(self.vehID)
+        subscription_result = traci.vehicle.getSubscriptionResults(self.vehID)
+        position = subscription_result[tc.VAR_POSITION3D]
+        angle = subscription_result[tc.VAR_ANGLE]
         self.position = position
         self.angle = angle
         if self.last_position is not None:
