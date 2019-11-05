@@ -86,10 +86,18 @@ class EgoVehicle(Ego):
         """
         super().__init__()
         self.vehID = vehID
-        traci.vehicle.subscribe(self.vehID, (tc.VAR_POSITION3D, tc.VAR_ANGLE, tc.VAR_SPEED))
+        self.subscribed = False
+        vehicle_list = traci.vehicle.getIDList()
+        if self.vehID in vehicle_list:
+            self.subscribe()
+            self.subscribed = True
         self.position = (0, 0, 0)
         self.angle = 0
         self.speed = 0
+
+    def subscribe(self):
+        """Adds a TraCI subscription for the ego vehicle"""
+        traci.vehicle.subscribe(self.vehID, (tc.VAR_POSITION3D, tc.VAR_ANGLE, tc.VAR_SPEED))
 
     def get_velocity_vector(self):
         """Calculates the velocity vector of the Ego vehicle."""
@@ -108,6 +116,12 @@ class EgoVehicle(Ego):
         Should be run every simulation step.
         :return: None
         """
+        if not self.subscribed:
+            vehicle_list = traci.vehicle.getIDList()
+            if self.vehID in vehicle_list:
+                self.subscribe()
+            else:
+                return
         subscription_result = traci.vehicle.getSubscriptionResults(self.vehID)
         position = subscription_result[tc.VAR_POSITION3D]
         angle = subscription_result[tc.VAR_ANGLE]
