@@ -20,6 +20,9 @@ class Ego:
         if _ego_declared:
             raise UserWarning("Multiple Egos created. This could have undesired effects.")
         self.listener = oalGetListener()  # type: Listener
+        self.position = (0, 0, 0)
+        self.velocity = (0, 0, 0)
+        self.orientation = (0, 0, 0, 0, 0, 0)
         _ego_declared = True
 
     def set_position(self, position):
@@ -29,6 +32,7 @@ class Ego:
         :return: None
         :type position: tuple[float, float, float]
         """
+        self.position = position
         self.listener.set_position(position)
 
     def set_velocity(self, velocity):
@@ -38,6 +42,7 @@ class Ego:
         :return: None
         :type velocity: tuple[float, float, float]
         """
+        self.velocity = velocity
         self.listener.set_velocity(velocity)
 
     def set_orientation(self, orientation):
@@ -47,6 +52,7 @@ class Ego:
         :return: None
         :type orientation: tuple[float, float, float, float, float, float]
         """
+        self.orientation = orientation
         self.listener.set_orientation(orientation)
 
     def set_angle(self, angle):

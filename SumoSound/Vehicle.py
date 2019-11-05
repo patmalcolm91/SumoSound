@@ -19,6 +19,7 @@ class Vehicle:
         self.angle = 0
         self.speed = 0
         self.acceleration = 0
+        self.enabled = False
         self.sounds = []  # type: list[VehicleSound]
         self.signals = []  # type: list[str]
         self.response_curves = []  # type: list[list[tuple[float, float]]]
@@ -71,12 +72,16 @@ class Vehicle:
                 sound.set_velocity(self.get_velocity_vector())
 
     def enable(self):
+        self.enabled = True
         for sound in self.sounds:
+            sound.enable()
             sound.play()
 
     def disable(self):
+        self.enabled = False
         for sound in self.sounds:
             sound.pause()
+            sound.disable()
 
     def update(self):
         subscription_result = traci.vehicle.getSubscriptionResults(self.id)
