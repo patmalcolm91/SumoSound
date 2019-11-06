@@ -4,10 +4,10 @@ import os, sys
 import time
 import SumoSound
 
-sys.path.append("/usr/local/share/sumo")
+sys.path.append(os.getenv("SUMO_HOME"))
 import traci
 
-sumoBinary = "/usr/local/bin/sumo-gui"
+sumoBinary = "sumo-gui"
 sumoCmd = [sumoBinary, "-c", "sound_test.sumocfg"]
 
 soundEgo = SumoSound.Ego()
