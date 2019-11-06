@@ -5,6 +5,7 @@ Author: Patrick Malcolm
 """
 
 __all__ = ["Vehicle", "Sounds", "Ego", "Simulation"]
+__version__ = "1.0.0"
 
 import os
 import sys
