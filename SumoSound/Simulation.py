@@ -6,6 +6,7 @@ from .Ego import *
 from .Vehicle import *
 import traci
 import traci.constants as tc
+import warnings
 
 DEFAULT_VEHICLE_CLASS_MAP = {
     "ignoring": PassengerVehicle,
@@ -93,7 +94,7 @@ class Simulation:
                         veh.enable()
                     except al.ALError:
                         self.max_vehicle_count = i-1
-                        print("Failed to add vehicle. Setting max vehicle count to " + str(self.max_vehicle_count))
+                        warnings.warn("Failed to add vehicle. Setting max vehicle count to " + str(i-1), RuntimeWarning)
             else:
                 if veh.enabled:
                     veh.disable()
