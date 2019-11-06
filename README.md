@@ -7,8 +7,14 @@ the point of view of either a stationary ego position or one of the vehicles in 
 simulation.
 
 ## Installation
-Simply clone this repository and add it to your Python path. You can then import
-the library
+SumoSound can be installed using pip:
+```
+pip install SumoSound
+```
+
+Or, you can simply clone this repository and add it to your Python path.
+
+You can then import the library.
 ```python
 import SumoSound
 ```
