@@ -84,11 +84,13 @@ class EgoVehicle(Ego):
     """
     Normal Sumo Ego Vehicle. The position, orientation, and speed are pulled directly from TraCI.
     """
-    def __init__(self, vehID):
+    def __init__(self, vehID, listener_offset=(0, 0, 1.8)):
         """
         Initializes an EgoVehicle object.
         :param vehID: Sumo vehicle ID with which to sync.
+        :param listener_offset: offset vector from vehicle position to listener position
         :type vehID: str
+        :type listener_offset: tuple[float, float, float]
         """
         super().__init__()
         self.vehID = vehID
@@ -98,6 +100,7 @@ class EgoVehicle(Ego):
             self.subscribe()
             self.subscribed = True
         self.position = (0, 0, 0)
+        self.listener_offset = listener_offset
         self.angle = 0
         self.speed = 0
 
@@ -142,7 +145,8 @@ class EgoVehicle(Ego):
         Sets the OpenAL Listener properties based on the Ego Vehicle's current state.
         :return:
         """
-        self.listener.set_position(self.position)
+        listener_position = tuple([self.position[i] + self.listener_offset[i] for i in range(len(self.position))])
+        self.listener.set_position(listener_position)
         self.listener.set_velocity(self.get_velocity_vector())
         self.listener.set_orientation(self.get_orientation_vector() + [0, 0, 0])
 
