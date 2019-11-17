@@ -157,13 +157,15 @@ class EgoVehicleManualSpeed(EgoVehicle):
     but speed is calculated manually from the positions. This is useful if the vehicle is not being controlled directly
     by Sumo, but from an external script or program, in which case the speed value in Sumo is not correctly reported.
     """
-    def __init__(self, vehID):
+    def __init__(self, vehID, listener_offset=(0, 0, 1.8)):
         """
         Initializes an EgoVehicleManualSpeed object.
         :param vehID: Sumo vehicle ID with which to sync.
+        :param listener_offset: offset vector from vehicle position to listener position
         :type vehID: str
+        :type listener_offset: tuple[float, float, float]
         """
-        super().__init__(vehID)
+        super().__init__(vehID, listener_offset)
         self.last_position = None
 
     def update(self):
