@@ -7,6 +7,7 @@ from .Sounds import *
 import math
 import traci
 import traci.constants as tc
+from typing import Any, Union, Callable, List, Tuple
 
 _pkg_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -20,12 +21,24 @@ class Vehicle:
         self.speed = 0
         self.acceleration = 0
         self.enabled = False
-        self.sounds = []  # type: list[VehicleSound]
-        self.signals = []  # type: list[str]
-        self.response_curves = []  # type: list[list[tuple[float, float]]]
+        self.sounds = []  # type: List[VehicleSound]
+        self.signals = []  # type: List[Union[str, None]]
+        self.response_curves = []  # type: List[Union[List[Tuple[float, float]], Callable[[Any], Union[float, int]]]]
         self.update_sounds()
 
     def add_sound(self, vehicle_sound, signal=None, response_curve=None):
+        """
+        Adds a VehicleSound with corresponding signal and response curve to the Vehicle.
+        :param vehicle_sound: VehicleSound to add to Vehicle
+        :param signal: attribute of Vehicle used to attenuate gain of vehicle_sound. Must be passed with response_curve
+        :param response_curve: curve used to calculate gain from signal. May be callable or list of 2-length tuples.
+        :return: None
+        :type vehicle_sound: VehicleSound
+        :type signal: str
+        :type response_curve: Union[List[tuple[float, float]], Callable[[Any], Union[float, int]]]
+        """
+        if signal is not None and response_curve is None:
+            raise TypeError("If signal is given, response_curve must also be given.")
         self.sounds.append(vehicle_sound)
         self.signals.append(signal)
         self.response_curves.append(response_curve)
@@ -36,7 +49,7 @@ class Vehicle:
         :param curve: response curve to use to calculate value
         :param x: input signal value
         :return: output of response curve at point corresponding to x
-        :type curve: list[tuple[int, int]]
+        :type curve: list[tuple[Union[float, int], Union[float, int]]]
         :type x: float
         """
         # clip output values at curve extents

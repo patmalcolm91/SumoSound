@@ -6,6 +6,7 @@ import math
 from openal import *
 import traci
 import traci.constants as tc
+from typing import Union, List, Tuple
 
 _ego_declared = False
 
@@ -30,7 +31,7 @@ class Ego:
         Sets position of the Ego.
         :param position: 3-component position vector.
         :return: None
-        :type position: tuple[float, float, float]
+        :type position: Tuple[float, float, float]
         """
         self.position = position
         self.listener.set_position(position)
@@ -40,7 +41,7 @@ class Ego:
         Sets velocity vector of the Ego.
         :param velocity: 3-component velocity vector.
         :return: None
-        :type velocity: tuple[float, float, float]
+        :type velocity: Tuple[float, float, float]
         """
         self.velocity = velocity
         self.listener.set_velocity(velocity)
@@ -50,7 +51,7 @@ class Ego:
         Sets sound orientation from orientation vector.
         :param orientation: 6-component orientation vector. See OpenAL documentation.
         :return: None
-        :type orientation: tuple[float, float, float, float, float, float]
+        :type orientation: Tuple[float, float, float, float, float, float]
         """
         self.orientation = orientation
         self.listener.set_orientation(orientation)
@@ -90,7 +91,7 @@ class EgoVehicle(Ego):
         :param vehID: Sumo vehicle ID with which to sync.
         :param listener_offset: offset vector from vehicle position to listener position
         :type vehID: str
-        :type listener_offset: tuple[float, float, float]
+        :type listener_offset: Tuple[float, float, float]
         """
         super().__init__()
         self.vehID = vehID
@@ -163,7 +164,7 @@ class EgoVehicleManualSpeed(EgoVehicle):
         :param vehID: Sumo vehicle ID with which to sync.
         :param listener_offset: offset vector from vehicle position to listener position
         :type vehID: str
-        :type listener_offset: tuple[float, float, float]
+        :type listener_offset: Tuple[float, float, float]
         """
         super().__init__(vehID, listener_offset)
         self.last_position = None

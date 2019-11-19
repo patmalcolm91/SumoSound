@@ -105,6 +105,8 @@ class Simulation:
         :param vehID: id of the Sumo vehicle
         :param enabled: whether or not the vehicle should be enabled by default
         :return: None
+        :type vehID: str
+        :type enabled: bool
         """
         vClass = traci.vehicle.getVehicleClass(vehID)
         if vClass in self.vehicle_class_map and self.vehicle_class_map[vClass] is not None:
@@ -118,6 +120,7 @@ class Simulation:
         Remove the vehicle with the specified id from the simulation.
         :param vehID:
         :return: None
+        :type vehID: str
         """
         self.vehicles[vehID].disable()
         del self.vehicles[vehID]

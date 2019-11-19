@@ -3,6 +3,7 @@ Contains classes for vehicle sounds
 """
 
 from openal import *
+from typing import Union, Tuple, List
 
 _buffers = dict()  # a dict with file paths as keys and the corresponding buffers as values
 
@@ -21,7 +22,7 @@ class VehicleSound:
         :param enabled: whether or not the sound should be enabled by default
         :type file: str
         :type base_gain: float
-        :type relative_position: tuple[float, float, float]
+        :type relative_position: Tuple[float, float, float]
         :type looping: bool
         :type enabled: bool
         """
@@ -77,7 +78,7 @@ class VehicleSound:
         Sets the position of the sound (absolute coordinates).
         :param position: position for the sound.
         :return: None
-        :type position: tuple[float, float, float]
+        :type position: Tuple[float, float, float]
         """
         self.position = position
         if self.enabled:
@@ -88,7 +89,7 @@ class VehicleSound:
         Sets the velocity vector of the sound (absolute coordinates).
         :param velocity: velocity vector for the sound
         :return: None
-        :type velocity: tuple[float, float, float]
+        :type velocity: Union[Tuple, List][float, float, float]
         """
         self.velocity = velocity
         if self.enabled:
