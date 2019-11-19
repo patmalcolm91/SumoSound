@@ -66,7 +66,11 @@ class Vehicle:
             except AttributeError as err:
                 raise ValueError("Signal " + self.signals[i] + " not in class " + self.__class__.__name__) from err
             else:
-                sound.set_gain(self._calculate_response_from_curve(self.response_curves[i], signal_value))
+                if callable(self.response_curves[i]):
+                    gain = self.response_curves[i](signal_value)
+                else:
+                    gain = self._calculate_response_from_curve(self.response_curves[i], signal_value)
+                sound.set_gain(gain)
                 pos = tuple([sound.relative_position[i] + self.position[i] for i in range(3)])
                 sound.set_position(pos)
                 sound.set_velocity(self.get_velocity_vector())
