@@ -12,7 +12,7 @@ SumoSound can be installed using pip:
 pip install SumoSound
 ```
 
-Or, you can simply clone this repository and add it to your Python path.
+Or, you can simply clone the GitHub repository and add it to your Python path.
 
 You can then import the library.
 ```python
