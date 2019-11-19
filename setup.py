@@ -8,7 +8,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 setup(
   name='SumoSound',
   packages=['SumoSound'],
-  version='1.0.1',
+  version='1.0.2',
   license='MIT',
   description='A python library to add 3D sound to a Sumo traffic simulation.',
   long_description=long_description,
@@ -16,7 +16,7 @@ setup(
   author='Patrick Malcolm',
   author_email='patmalcolm91@gmail.com',
   url='https://github.com/patmalcolm91/SumoSound',
-  download_url='https://github.com/patmalcolm91/SumoSound/archive/v_1.0.1.tar.gz',
+  download_url='https://github.com/patmalcolm91/SumoSound/archive/v_1.0.2.tar.gz',
   keywords=['sumo', 'TraCI', 'sound', 'sound effects', '3D sound', 'OpenAL', 'traffic'],
   install_requires=[
           'pyopenal',
