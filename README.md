@@ -102,8 +102,9 @@ class CustomVehicle(SumoSound.Vehicle):
         self.add_sound(horn_sound, "horn", response_curve=[(False, 0), (True, 1)])
 ```
 
-The argument ```response_curve``` of the method ```add_sound()``` is a list of ```(signal_value, gain)``` tuples, which
-are interpolated as necessary to calculate the sound gain from the signal value.
+The argument ```response_curve``` of the method ```add_sound()``` may either be a callable with the signature
+```fun(signal_value) -> gain``` or a list of ```(signal_value, gain)``` tuples, which are interpolated as necessary to
+calculate the sound gain from the signal value.
 
 To associate the custom vehicle type with a vehicle class, the ```vehicle_class_map``` argument of the ```Simulation```
 constructor must be passed a custom dict containing the desired mapping, or the default dict can be modified before
