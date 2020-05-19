@@ -43,7 +43,8 @@ class Vehicle:
         self.signals.append(signal)
         self.response_curves.append(response_curve)
 
-    def _calculate_response_from_curve(self, curve, x):
+    @staticmethod
+    def _calculate_response_from_curve(curve, x):
         """
         Calculates the y value of the specified curve at x
         :param curve: response curve to use to calculate value
