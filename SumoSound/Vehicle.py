@@ -102,6 +102,10 @@ class Vehicle:
             sound.pause()
             sound.disable()
 
+    def update_custom_signals(self):
+        """Override this method to add custom signal-updating logic. Called by update() before update_sounds()."""
+        pass
+
     def update(self):
         subscription_result = traci.vehicle.getSubscriptionResults(self.id)
         position = subscription_result[tc.VAR_POSITION3D]
@@ -110,6 +114,7 @@ class Vehicle:
         self.position = position
         self.angle = angle
         self.speed = speed
+        self.update_custom_signals()
         self.update_sounds()
 
     def __del__(self):
