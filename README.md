@@ -125,5 +125,8 @@ be automatically handled the next time the simulation is updated.
 simulation.vehicles["vehicleID"].horn = True
 ```
 
+Custom signal logic can also be set to run automatically every simulation step by overriding the 
+```Vehicle.update_custom_signals()``` method in the subclass and placing signal-setting logic in the overridden method.
+
 ## Contribution
 Issues and pull requests are welcome.
