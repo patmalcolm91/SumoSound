@@ -6,6 +6,10 @@ default sound effects, but is fully customizable, and can calculate the sounds f
 the point of view of either a stationary ego position or one of the vehicles in the
 simulation.
 
+[![Demo Video](https://img.youtube.com/vi/BPHDzUglJzg/0.jpg)](https://youtu.be/BPHDzUglJzg)
+
+*Click Image to Play Demo Video*
+
 ## Installation
 SumoSound can be installed using pip:
 ```
