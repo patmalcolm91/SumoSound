@@ -30,7 +30,7 @@ DEFAULT_VEHICLE_CLASS_MAP = {
     "evehicle": ElectricVehicle,
     "tram": None,
     "rail_urban": None,
-    "rail": None,
+    "rail": HeavyRailVehicle,
     "rail_electric": None,
     "rail_fast": None,
     "ship": None,

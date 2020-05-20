@@ -170,6 +170,14 @@ class Bicycle(Vehicle):
         self.add_sound(sound, "speed", [(0, 0), (6, 1)])
 
 
+class HeavyRailVehicle(Vehicle):
+    def __init__(self, id, sound_file=_pkg_dir+"/stock_sounds/freight_train.wav"):
+        super().__init__(id)
+        traci.vehicle.getLength(self.id)
+        sound = VehicleSound(sound_file, base_gain=4)
+        self.add_sound(sound, "speed", [(0, 0), (35, 1)])
+
+
 if __name__ == "__main__":
     import time
     listener = oalGetListener()
