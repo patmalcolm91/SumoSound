@@ -29,10 +29,10 @@ DEFAULT_VEHICLE_CLASS_MAP = {
     "bicycle": Bicycle,
     "evehicle": ElectricVehicle,
     "tram": None,
-    "rail_urban": None,
+    "rail_urban": HeavyRailVehicle,
     "rail": HeavyRailVehicle,
-    "rail_electric": None,
-    "rail_fast": None,
+    "rail_electric": HeavyRailVehicle,
+    "rail_fast": HighSpeedRailVehicle,
     "ship": None,
     "custom1": None,
     "custom2": None

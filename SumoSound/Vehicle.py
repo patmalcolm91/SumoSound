@@ -231,6 +231,11 @@ class HeavyRailVehicle(_RailVehicle):
         super().__init__(id, sound_file=sound_file)
 
 
+class HighSpeedRailVehicle(_RailVehicle):
+    def __init__(self, id, sound_file=_pkg_dir+"/stock_sounds/high-speed-train.wav"):
+        super().__init__(id, sound_file=sound_file)
+
+
 if __name__ == "__main__":
     import time
     listener = oalGetListener()
