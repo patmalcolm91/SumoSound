@@ -2,6 +2,6 @@
 	<flows>
 		<flow arrivalSpeed="current" begin="0" departSpeed="max" end="90" from="eastbound" id="eastbound_cars" to="eastbound" type="passenger" vehsPerHour="1000"/>
 		<flow arrivalSpeed="current" begin="10" departSpeed="max" end="90" from="westbound" id="westbound_ambulances" to="westbound" type="ambulance" vehsPerHour="3"/>
-		<flow arrivalSpeed="current" begin="10" departSpeed="max" end="90" from="rrtrack" id="rail" to="rrtrack" type="rail" vehsPerHour="3"/>
+		<flow arrivalSpeed="current" begin="20" departSpeed="max" end="90" from="rrtrack" id="rail" to="rrtrack" type="rail" vehsPerHour="3"/>
 	</flows>
 </routes>
