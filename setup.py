@@ -20,6 +20,7 @@ setup(
   keywords=['sumo', 'TraCI', 'sound', 'sound effects', '3D sound', 'OpenAL', 'traffic'],
   install_requires=[
           'pyopenal',
+          'shapely'
       ],
   classifiers=[
     'Development Status :: 5 - Production/Stable',

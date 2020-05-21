@@ -7,6 +7,8 @@ from .Sounds import *
 import math
 import traci
 import traci.constants as tc
+import shapely.geometry
+import shapely.ops
 from typing import Any, Union, Callable, List, Tuple
 
 _pkg_dir = os.path.dirname(os.path.abspath(__file__))
@@ -170,12 +172,63 @@ class Bicycle(Vehicle):
         self.add_sound(sound, "speed", [(0, 0), (6, 1)])
 
 
-class HeavyRailVehicle(Vehicle):
-    def __init__(self, id, sound_file=_pkg_dir+"/stock_sounds/freight_train.wav"):
+class _RailVehicle(Vehicle):
+    def __init__(self, id, sound_file):
         super().__init__(id)
-        traci.vehicle.getLength(self.id)
-        sound = VehicleSound(sound_file, base_gain=4)
-        self.add_sound(sound, "speed", [(0, 0), (35, 1)])
+        # create variables for storing traversed lanes, used to calculate train shape (not currently available in TraCI)
+        self.traversed_lanes = []
+        self._traversed_lanes_alignment = None
+        self._current_lane_length = None
+        # get positions of carriages along train alignment
+        vType = traci.vehicle.getTypeID(self.id)
+        carriage_length = traci.vehicletype.getParameter(vType, "carriageLength")
+        self.carriage_length = float(carriage_length) if carriage_length is not "" else 16.75
+        locomotive_length = traci.vehicletype.getParameter(vType, "locomotiveLength")
+        self.locomotive_length = float(locomotive_length) if locomotive_length is not "" else 16.75
+        carriage_gap = traci.vehicletype.getParameter(vType, "carriageGap")
+        self.carriage_gap = float(carriage_gap) if carriage_gap is not "" else 0
+        self.length = traci.vehicle.getLength(self.id)
+        self.carriage_positions = [self.locomotive_length/2]
+        pos = self.carriage_positions[0] + self.carriage_length + self.carriage_gap
+        while pos < self.length:
+            self.carriage_positions.append(pos)
+            pos += self.carriage_length + self.carriage_gap
+        # add one sound per carriage
+        for p in self.carriage_positions:
+            sound = VehicleSound(sound_file, base_gain=2)
+            self.add_sound(sound, "speed", [(0, 0), (35, 1)])
+        self.update_custom_signals()
+
+    def _get_vehicle_shape(self):
+        """return the shape of the train as a shapely LineString"""
+        current_lane = traci.vehicle.getLaneID(self.id)
+        lane_pos = traci.vehicle.getLanePosition(self.id)
+        if len(self.traversed_lanes) == 0 or self.traversed_lanes[-1] != current_lane:
+            self.traversed_lanes.append(current_lane)
+            self._current_lane_length = traci.lane.getLength(current_lane)
+            lane_coords = traci.lane.getShape(current_lane)
+            lane_align = shapely.geometry.LineString(lane_coords)
+            if self._traversed_lanes_alignment is None:
+                self._traversed_lanes_alignment = lane_align
+            else:
+                self._traversed_lanes_alignment = shapely.ops.linemerge([self._traversed_lanes_alignment, lane_align])
+        vehicle_shape = shapely.ops.substring(self._traversed_lanes_alignment, -self._current_lane_length+lane_pos,
+                                              -self._current_lane_length+lane_pos-self.length)
+        return vehicle_shape
+
+    def update_custom_signals(self):
+        # instead of calculating signal values, adjust sound relative positions based on train shape
+        vehicle_shape = self._get_vehicle_shape()
+        positions = [tuple(shapely.ops.substring(vehicle_shape, pos, pos).coords[0]) for pos in self.carriage_positions]
+        for i, sound in enumerate(self.sounds):
+            abs_pos = (positions[i][0], positions[i][1], self.position[2])
+            rel_pos = tuple([abs_pos[i]-self.position[i] for i in range(3)])
+            sound.relative_position = rel_pos
+
+
+class HeavyRailVehicle(_RailVehicle):
+    def __init__(self, id, sound_file=_pkg_dir+"/stock_sounds/freight_train.wav"):
+        super().__init__(id, sound_file=sound_file)
 
 
 if __name__ == "__main__":
