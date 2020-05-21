@@ -151,7 +151,7 @@ class EmergencyVehicle(Vehicle):
         self.add_sound(engine_sound, "acceleration", [(0, 0.5), (2.5, 1)])
         tire_sound = VehicleSound(tire_sound_file, base_gain=2)
         self.add_sound(tire_sound, "speed", [(0, 0), (28, 1)])
-        siren_sound = VehicleSound(siren_sound_file, base_gain=2)
+        siren_sound = VehicleSound(siren_sound_file, base_gain=2, random_pos=False)
         self.add_sound(siren_sound, "siren", [(False, 0), (True, 1)])
 
 
