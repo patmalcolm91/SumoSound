@@ -172,7 +172,7 @@ class Bicycle(Vehicle):
         self.add_sound(sound, "speed", [(0, 0), (6, 1)])
 
 
-class _RailVehicle(Vehicle):
+class RailVehicle(Vehicle):
     def __init__(self, id, sound_file, base_gain=1):
         super().__init__(id)
         # create variables for storing traversed lanes, used to calculate train shape (not currently available in TraCI)
@@ -226,12 +226,12 @@ class _RailVehicle(Vehicle):
             sound.relative_position = rel_pos
 
 
-class HeavyRailVehicle(_RailVehicle):
+class HeavyRailVehicle(RailVehicle):
     def __init__(self, id, sound_file=_pkg_dir+"/stock_sounds/freight_train.wav"):
         super().__init__(id, sound_file=sound_file, base_gain=2)
 
 
-class HighSpeedRailVehicle(_RailVehicle):
+class HighSpeedRailVehicle(RailVehicle):
     def __init__(self, id, sound_file=_pkg_dir+"/stock_sounds/high-speed-train.wav"):
         super().__init__(id, sound_file=sound_file, base_gain=3)
 
