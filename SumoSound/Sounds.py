@@ -4,6 +4,7 @@ Contains classes for vehicle sounds
 
 from openal import *
 from typing import Union, Tuple, List
+import random
 
 _buffers = dict()  # a dict with file paths as keys and the corresponding buffers as values
 
@@ -12,7 +13,7 @@ class VehicleSound:
     """
     Wrapper class for an OpenAL source with properties to store relative position on vehicle and other parameters.
     """
-    def __init__(self, file, base_gain=1, relative_position=None, looping=True, enabled=False):
+    def __init__(self, file, base_gain=1, relative_position=None, looping=True, enabled=False, random_pos=None):
         """
         Initializes a VehicleSound object.
         :param file: path to the sound file (mono .wav for best results)
@@ -20,21 +21,30 @@ class VehicleSound:
         :param relative_position: position of the sound relative to the vehicle point.
         :param looping: whether or not the sound should be set to loop
         :param enabled: whether or not the sound should be enabled by default
+        :param random_pos: if true, play starting at a random position (avoids phasing). Defaults to True if looping.
         :type file: str
         :type base_gain: float
         :type relative_position: Tuple[float, float, float]
         :type looping: bool
         :type enabled: bool
+        :type random_pos: bool
         """
         self.file = file
         self.base_gain = base_gain
         self.relative_position = relative_position if relative_position is not None else (0, 0, 0)
         if self.file not in _buffers:
             _buffers[self.file] = Buffer(WaveFile(self.file))
+        self.buffer_id = _buffers[self.file].id
+        sizeInBytes, channels, bits = ALint(), ALint(), ALint()
+        alGetBufferi(self.buffer_id, AL_SIZE, sizeInBytes)
+        alGetBufferi(self.buffer_id, AL_CHANNELS, channels)
+        alGetBufferi(self.buffer_id, AL_BITS, bits)
+        self.sample_count = sizeInBytes.value * 8 / (channels.value * bits.value)
         self.source = None
         self.enabled = enabled
         self.playing = False
         self.looping = looping
+        self.random_pos = random_pos if random_pos is not None else looping
         self.position = (0, 0, 0)
         self.velocity = (0, 0, 0)
         if enabled:
@@ -43,6 +53,8 @@ class VehicleSound:
     def enable(self):
         self.source = Source(_buffers[self.file])
         self.source.set_looping(self.looping)
+        if self.random_pos:
+            alSourcei(self.source.id, AL_SAMPLE_OFFSET, random.randint(0, self.sample_count-1))
         self.enabled = True
         self.set_position(self.position)
         self.set_velocity(self.velocity)
